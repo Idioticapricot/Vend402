@@ -35,3 +35,36 @@ model Machine {
 
   @@map("machines")
 }
+
+// Vend402 Models (Stellar Payments)
+model Vend402Challenge {
+  id          String   @id @default(uuid())
+  challenge_id String  @unique
+  device_id   String
+  amount      String
+  destination String
+  memo        String
+  expires_at  DateTime
+  created_at  DateTime @default(now())
+
+  @@index([device_id])
+  @@index([expires_at])
+  @@map("vend402_challenges")
+}
+
+model Vend402Payment {
+  id          String   @id @default(uuid())
+  challenge_id String
+  device_id   String
+  amount      String
+  asset       String
+  tx_hash     String   @unique
+  status      String   @default("pending") // pending | verified | settled | failed
+  created_at  DateTime @default(now())
+  verified_at DateTime?
+  settled_at  DateTime?
+
+  @@index([device_id])
+  @@index([tx_hash])
+  @@map("vend402_payments")
+}
