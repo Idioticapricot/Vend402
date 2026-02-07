@@ -260,9 +260,14 @@ void initChainConfigs() {
   // Initialize Stellar configuration
   stellarConfig.name = "stellar";
   stellarConfig.supabaseUrl = "mrsvbhcsbwxkrpzrrvun.supabase.co"; 
+  // IMPORTANT: Update this with your Supabase Anon Key from the Dashboard
   stellarConfig.supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yc3ZiaGNzYnd4a3JwenJydnVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzODYyNzQsImV4cCI6MjA4NTk2MjI3NH0.7-12mrWqMr7vu_fj83lyRo3L-DCR62JpQuzLqzSp9GI";
-  stellarConfig.merchantApiBase = "vend402-gatekeeper"; 
-  stellarConfig.paymentUrlBase = "localhost:3000/pay/vend402/";
+  
+  // IMPORTANT: Update these with your deployed URL (e.g. https://your-app.vercel.app/)
+  // Ensure 'api/' is at the end of merchantApiBase
+  stellarConfig.merchantApiBase = "your-app-url.vercel.app/api/"; 
+  // Ensure 'pay/' is at the end of paymentUrlBase
+  stellarConfig.paymentUrlBase = "your-app-url.vercel.app/pay/";
 
   // Set Algorand as default active chain
   activeChain = &algorandConfig;

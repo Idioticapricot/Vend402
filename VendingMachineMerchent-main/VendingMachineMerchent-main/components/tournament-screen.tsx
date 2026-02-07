@@ -87,11 +87,11 @@ export function TournamentScreen() {
             transition={{ delay: 0.5 }}
             className="text-center mb-4"
           >
-            <h2 className="text-sm text-teal-300 mb-2">ALGORAND</h2>
+            <h2 className="text-sm text-teal-300 mb-2">STELLAR</h2>
             <h1 className="text-lg font-bold text-emerald-300 mb-4">FANTASY LEAGUE</h1>
 
             <div className="mb-4">
-              <div className="text-yellow-400 text-2xl font-bold mb-1">JOIN WITH 5 ALGO AND</div>
+              <div className="text-yellow-400 text-2xl font-bold mb-1">JOIN WITH 5 XLM AND</div>
               <div className="text-yellow-400 text-lg font-bold mb-2">WIN TOTAL PRIZES OF</div>
               <motion.div
                 initial={{ scale: 0.8 }}
@@ -99,7 +99,7 @@ export function TournamentScreen() {
                 transition={{ delay: 0.7, type: "spring", stiffness: 200 }}
                 className="text-yellow-400 text-4xl font-bold"
               >
-                550.00 ALGO
+                550.00 XLM
               </motion.div>
             </div>
 
@@ -189,9 +189,9 @@ export function TournamentScreen() {
           whileTap={{ scale: 0.98 }}
         >
           <Button className="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-4 rounded-xl text-lg">
-            Join with ALGO
+            Join with XLM
             <div className="ml-2 bg-black/20 px-2 py-1 rounded text-sm">
-              0.03
+              5.0
             </div>
           </Button>
         </motion.div>

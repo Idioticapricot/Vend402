@@ -7,10 +7,10 @@ import { Providers } from "@/components/providers"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Vending Machine Dashboard - Algorand Smart Contracts",
+  title: "Vending Machine Dashboard - Stellar Smart Contracts",
   description:
-    "Manage your vending machines with smart contracts on Algorand. Create, deploy, and withdraw funds seamlessly.",
-    generator: 'v0.app'
+    "Manage your vending machines with smart contracts on Stellar. Create, deploy, and withdraw funds seamlessly.",
+  generator: 'v0.app'
 }
 
 export default function RootLayout({

@@ -18,23 +18,23 @@ export interface PriceData {
 
 class CryptoAPIService {
   private baseUrl = 'https://api.coingecko.com/api/v3'
-  
+
   async getTopTokens(limit: number = 50): Promise<CryptoToken[]> {
     try {
       // In production, use real API
       // const response = await fetch(`${this.baseUrl}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${limit}&page=1`)
       // const data = await response.json()
-      
+
       // Mock data for demo
       return [
         {
-          id: 'algorand',
-          symbol: 'ALGO',
-          name: 'Algorand',
-          current_price: 0.32 + (Math.random() - 0.5) * 0.02,
-          price_change_percentage_24h: 2.4 + (Math.random() - 0.5) * 5,
-          market_cap_rank: 35,
-          image: '🪙'
+          id: 'stellar',
+          symbol: 'XLM',
+          name: 'Stellar',
+          current_price: 0.11 + (Math.random() - 0.5) * 0.01,
+          price_change_percentage_24h: 1.2 + (Math.random() - 0.5) * 5,
+          market_cap_rank: 25,
+          image: '🚀'
         },
         {
           id: 'bitcoin',
@@ -122,13 +122,13 @@ class CryptoAPIService {
       const data: PriceData[] = []
       const now = Date.now()
       const basePrice = this.getBasePriceForToken(tokenId)
-      
+
       for (let i = 0; i < 100; i++) {
         const timestamp = now - (100 - i) * (days * 24 * 60 * 60 * 1000) / 100
         const price = basePrice + (Math.random() - 0.5) * basePrice * 0.1
         data.push({ timestamp, price })
       }
-      
+
       return data
     } catch (error) {
       console.error('Error fetching historical data:', error)
@@ -138,7 +138,7 @@ class CryptoAPIService {
 
   private getBasePriceForToken(tokenId: string): number {
     const basePrices: { [key: string]: number } = {
-      'algorand': 0.32,
+      'stellar': 0.11,
       'bitcoin': 43250,
       'ethereum': 2650,
       'solana': 98.5,

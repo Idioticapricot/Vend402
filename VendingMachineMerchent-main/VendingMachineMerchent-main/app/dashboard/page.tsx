@@ -47,11 +47,11 @@ export default function DashboardPage() {
       }
 
       setUser(session.user)
-      
+
       // Get user from database
       let userResponse = await fetch(`/api/user?email=${session.user.email}`)
       let userData = await userResponse.json()
-      
+
       if (!userData.user) {
         // Create user only if doesn't exist
         userResponse = await fetch('/api/user', {
@@ -61,14 +61,22 @@ export default function DashboardPage() {
         })
         userData = await userResponse.json()
       }
-      
+
+
+      if (!userData.user) {
+        console.error("Failed to load or create user", userData)
+        toast.error("Failed to initialize user account")
+        setLoading(false)
+        return
+      }
+
       setDbUser(userData.user)
 
       // Load machines
       const machinesResponse = await fetch(`/api/machines?ownerId=${userData.user.id}`)
       const machinesData = await machinesResponse.json()
       setMachines(machinesData.machines || [])
-      
+
       setLoading(false)
     }
 
@@ -85,12 +93,12 @@ export default function DashboardPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ownerId: dbUser.id, price: parseFloat(price) || 0.0 })
       })
-      
+
       const data = await response.json()
-      
+
       if (response.ok) {
         setMachines([data.machine, ...machines])
-        toast.success("Smart contract deployed successfully!")
+        toast.success("Machine registered successfully!")
         setIsCreateModalOpen(false)
         setPrice('')
       } else {
@@ -152,7 +160,7 @@ export default function DashboardPage() {
                 <div className="space-y-4 py-4">
                   <div>
                     <label className="text-sm font-medium text-gray-300 mb-2 block">
-                      Product Price (ALGO)
+                      Product Price (XLM)
                     </label>
                     <input
                       type="number"
@@ -164,8 +172,8 @@ export default function DashboardPage() {
                       className="w-full px-3 py-2 bg-gray-900/50 border border-gray-700 rounded text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500"
                     />
                   </div>
-                  <Button 
-                    className="w-full bg-emerald-500 hover:bg-emerald-400" 
+                  <Button
+                    className="w-full bg-emerald-500 hover:bg-emerald-400"
                     onClick={handleCreateMachine}
                     disabled={isCreating}
                   >
@@ -202,8 +210,8 @@ export default function DashboardPage() {
           ) : (
             <div className="grid md:grid-cols-2 gap-6">
               {machines.map((machine) => (
-                <Card 
-                  key={machine.id} 
+                <Card
+                  key={machine.id}
                   className="glass-card border-gray-700 cursor-pointer hover:border-emerald-500/50 transition-colors"
                   onClick={() => router.push(`/machine/${machine.id}`)}
                 >
@@ -212,16 +220,40 @@ export default function DashboardPage() {
                       <div>
                         <CardTitle className="text-white">Machine #{machine.id.slice(-8)}</CardTitle>
                         <CardDescription className="text-gray-400">
-                          Created {new Date(machine.created_at).toLocaleDateString()} • {machine.price} ALGO
+                          Created {new Date(machine.created_at).toLocaleDateString()} • {machine.price} XLM
                         </CardDescription>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
-                      <label className="text-gray-400 text-sm">Smart Contract ID</label>
+                      <label className="text-gray-400 text-sm">Payment Address (Merchant Wallet)</label>
                       <p className="text-sm font-mono text-gray-300 bg-gray-900/50 px-3 py-2 rounded mt-1 truncate">
                         {machine.machine_contract_address}
+                      </p>
+                    </div>
+
+                    <div>
+                      <label className="text-gray-400 text-sm font-bold text-yellow-500">REQUIRED MEMO</label>
+                      <div className="flex items-center gap-2 mt-1">
+                        <code className="flex-1 bg-gray-900/50 px-3 py-2 rounded text-sm text-yellow-400 font-mono font-bold tracking-wider">
+                          {machine.id}
+                        </code>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="border-gray-700 hover:bg-gray-800 bg-transparent"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            navigator.clipboard.writeText(machine.id)
+                            toast.success("Memo copied!")
+                          }}
+                        >
+                          <Copy className="w-4 h-4" />
+                        </Button>
+                      </div>
+                      <p className="text-[10px] text-gray-500 mt-1">
+                        * Payments MUST include this Memo to credit this machine.
                       </p>
                     </div>
 

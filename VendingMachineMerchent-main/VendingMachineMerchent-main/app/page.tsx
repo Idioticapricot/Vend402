@@ -3,7 +3,7 @@
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 
-export default function AlgorandFantasyLeague() {
+export default function StellarVendingMachine() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-600 via-teal-700 to-emerald-800 relative overflow-hidden stadium-bg">
       {/* Stadium Background */}

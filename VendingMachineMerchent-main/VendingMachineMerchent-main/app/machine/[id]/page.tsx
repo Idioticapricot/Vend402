@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowLeft, Copy, Check } from "lucide-react"
 import { toast } from "sonner"
-import algosdk, { getApplicationAddress } from 'algosdk'
+// import algosdk, { getApplicationAddress } from 'algosdk'
 
 interface Machine {
   id: string
@@ -36,7 +36,7 @@ export default function MachinePage() {
       try {
         const response = await fetch(`/api/machines/${params.id}`)
         const data = await response.json()
-        
+
         if (response.ok) {
           setMachine(data.machine)
           // Fetch contract balance after machine data is loaded
@@ -61,19 +61,9 @@ export default function MachinePage() {
   const fetchContractBalance = async (contractAddress: string) => {
     setBalanceLoading(true)
     try {
-      // Get the application address from the contract address
-      const appAddress = getApplicationAddress(parseInt(contractAddress))
-      
-      // Fetch balance from Algorand testnet
-      const response = await fetch(`https://testnet-api.algonode.cloud/v2/accounts/${appAddress}`)
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch balance')
-      }
-
-      const data = await response.json()
-      const balanceInAlgos = data.amount / 1000000 // Convert microAlgos to Algos
-      setContractBalance(balanceInAlgos)
+      // Mock balance for now as we transition to Stellar
+      // In production, we would query Horizon for the account balance
+      setContractBalance(100.0) // Mock 100 XLM
     } catch (error) {
       console.error('Error fetching contract balance:', error)
       toast.error('Failed to fetch contract balance')
@@ -210,7 +200,7 @@ export default function MachinePage() {
               <CardHeader>
                 <CardTitle className="text-white">Contract Balance</CardTitle>
                 <CardDescription className="text-gray-400">
-                  Amount of ALGOs stored in the contract
+                  Amount of XLM stored in the contract
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -224,7 +214,7 @@ export default function MachinePage() {
                       </div>
                     ) : (
                       <p className="text-2xl font-bold text-emerald-400">
-                        {contractBalance !== null ? `${contractBalance.toFixed(6)} ALGO` : 'Failed to load'}
+                        {contractBalance !== null ? `${contractBalance.toFixed(6)} XLM` : 'Failed to load'}
                       </p>
                     )}
                   </div>

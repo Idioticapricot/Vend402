@@ -17,6 +17,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { LogOut, UserIcon, Settings, Wallet } from "lucide-react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { isConnected, requestAccess } from "@stellar/freighter-api"
 
 export function Header() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
@@ -45,7 +46,7 @@ export function Header() {
         data: { session },
       } = await supabase.auth.getSession()
       setUser(session?.user ?? null)
-      
+
       if (session?.user) {
         // Get user from database
         const userResponse = await fetch(`/api/user?email=${session.user.email}`)
@@ -55,7 +56,7 @@ export function Header() {
           fetchWalletBalance(userData.user.wallet_address)
         }
       }
-      
+
       setLoading(false)
     }
 
@@ -66,7 +67,7 @@ export function Header() {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
       setUser(session?.user ?? null)
-      
+
       if (event === "SIGNED_IN" && session?.user) {
         const response = await fetch('/api/user', {
           method: 'POST',
@@ -87,7 +88,7 @@ export function Header() {
         toast.success("Successfully signed out!")
         router.push("/")
       }
-      
+
       setLoading(false)
     })
 
@@ -128,7 +129,7 @@ export function Header() {
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-600 to-purple-600" />
-            <span className="text-xl font-bold">Algorandi</span>
+            <span className="text-xl font-bold">Vend402</span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-6">
@@ -146,15 +147,73 @@ export function Header() {
               <>
                 {dbUser && (
                   <div className="hidden md:flex items-center space-x-2 bg-background/50 rounded-lg px-3 py-2">
-                    <Wallet className="h-4 w-4 text-muted-foreground" />
-                    <div className="text-sm">
-                      <div className="font-mono text-xs text-muted-foreground">
-                        {dbUser.wallet_address?.slice(0, 8)}...{dbUser.wallet_address?.slice(-6)}
-                      </div>
-                      <div className="font-medium">
-                        {walletBalance !== null ? `${walletBalance.toFixed(2)} ALGO` : 'Loading...'}
-                      </div>
-                    </div>
+                    {dbUser.is_custodial ? (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-7 text-xs border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-400"
+                        onClick={async () => {
+                          try {
+                            const isFreighterConnected = await isConnected()
+                            if (!isFreighterConnected) {
+                              toast.error("Freighter wallet not found. Please install it.")
+                              return
+                            }
+                            const accessObj = await requestAccess()
+                            if (accessObj.error) {
+                              console.error("Freighter access error:", accessObj.error)
+                              toast.error("Access denied: " + accessObj.error)
+                              return
+                            }
+
+                            const walletAddress = accessObj.address
+                            console.log("Freighter connected, address:", walletAddress)
+
+                            const response = await fetch('/api/user/wallet', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({
+                                email: user.email,
+                                walletAddress
+                              })
+                            })
+
+                            const data = await response.json()
+
+                            if (response.ok) {
+                              setDbUser(prev => ({
+                                ...prev,
+                                wallet_address: walletAddress,
+                                is_custodial: false
+                              }))
+                              fetchWalletBalance(walletAddress)
+                              toast.success("Wallet connected successfully!")
+                            } else {
+                              console.error("API Error updating wallet:", data)
+                              toast.error("Failed to save wallet: " + (data.error || "Unknown error"))
+                            }
+                          } catch (error) {
+                            console.error("Wallet connection error details:", error)
+                            toast.error("Connection failed. Check console for details.")
+                          }
+                        }}
+                      >
+                        <Wallet className="h-3 w-3 mr-2" />
+                        Connect Wallet
+                      </Button>
+                    ) : (
+                      <>
+                        <Wallet className="h-4 w-4 text-muted-foreground" />
+                        <div className="text-sm">
+                          <div className="font-mono text-xs text-muted-foreground">
+                            {dbUser.wallet_address?.slice(0, 8)}...{dbUser.wallet_address?.slice(-6)}
+                          </div>
+                          <div className="font-medium">
+                            {walletBalance !== null ? `${walletBalance.toFixed(2)} XLM` : 'Loading...'}
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
                 <DropdownMenu>
@@ -176,12 +235,61 @@ export function Header() {
                         <p className="w-[200px] truncate text-sm text-muted-foreground">{user.email}</p>
                         {dbUser && (
                           <>
-                            <p className="text-xs font-mono text-muted-foreground">
+                            <p className="text-xs font-mono text-muted-foreground mt-1">
                               {dbUser.wallet_address?.slice(0, 12)}...{dbUser.wallet_address?.slice(-8)}
                             </p>
                             <p className="text-xs font-medium text-green-600">
-                              {walletBalance !== null ? `${walletBalance.toFixed(4)} ALGO` : 'Loading balance...'}
+                              {walletBalance !== null ? `${walletBalance.toFixed(4)} XLM` : 'Loading...'}
                             </p>
+
+                            {dbUser.is_custodial && (
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="w-full mt-2 h-7 text-xs"
+                                onClick={async (e) => {
+                                  // ... existing click handler ...
+                                  e.preventDefault()
+                                  try {
+                                    const isFreighterConnected = await isConnected()
+                                    if (!isFreighterConnected) {
+                                      toast.error("Freighter wallet not found. Please install it.")
+                                      return
+                                    }
+                                    const accessObj = await requestAccess()
+                                    if (accessObj.error) {
+                                      toast.error(accessObj.error)
+                                      return
+                                    }
+                                    const walletAddress = accessObj.address
+
+                                    const response = await fetch('/api/user/wallet', {
+                                      method: 'POST',
+                                      headers: { 'Content-Type': 'application/json' },
+                                      body: JSON.stringify({
+                                        email: user.email,
+                                        walletAddress
+                                      })
+                                    })
+
+                                    if (response.ok) {
+                                      setDbUser(prev => ({
+                                        ...prev,
+                                        wallet_address: walletAddress,
+                                        is_custodial: false
+                                      }))
+                                      fetchWalletBalance(walletAddress)
+                                      toast.success("Wallet connected successfully!")
+                                    }
+                                  } catch (error) {
+                                    console.error("Wallet connection error:", error)
+                                  }
+                                }}
+                              >
+                                <Wallet className="w-3 h-3 mr-2" />
+                                Connect Freighter
+                              </Button>
+                            )}
                           </>
                         )}
                       </div>

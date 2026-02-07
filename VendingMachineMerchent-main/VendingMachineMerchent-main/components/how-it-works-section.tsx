@@ -17,7 +17,7 @@ export function HowItWorksSection() {
             How It Works
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Crypto Fantasy League (AFL.so) - The ultimate crypto trading competition on Algorand
+            Crypto Vending Machine (Vend402) - The ultimate vending machine dashboard on Stellar
           </p>
         </motion.div>
 
@@ -49,7 +49,7 @@ export function HowItWorksSection() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-gray-800/50 rounded-lg p-4 text-center">
                     <div className="text-2xl mb-2">🪙</div>
-                    <div className="text-white font-semibold">ALGO</div>
+                    <div className="text-white font-semibold">XLM</div>
                     <div className="text-emerald-400">30%</div>
                   </div>
                   <div className="bg-gray-800/50 rounded-lg p-4 text-center">
@@ -105,7 +105,7 @@ export function HowItWorksSection() {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center p-4 bg-gray-800/50 rounded-lg">
                     <span className="text-gray-300">Bet Amount</span>
-                    <span className="text-white font-bold">100 ALGO</span>
+                    <span className="text-white font-bold">100 XLM</span>
                   </div>
                   <div className="flex justify-between items-center p-4 bg-gray-800/50 rounded-lg">
                     <span className="text-gray-300">Duration</span>
@@ -138,11 +138,11 @@ export function HowItWorksSection() {
               <h3 className="text-3xl font-bold text-white">Win Big Prizes</h3>
             </div>
             <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-              Compete in tournaments, climb leaderboards, and win massive ALGO prizes. The more you play, the more you can earn!
+              Compete in tournaments, climb leaderboards, and win massive XLM prizes. The more you play, the more you can earn!
             </p>
             <div className="glass-card rounded-2xl p-8 bg-gradient-to-br from-purple-500/10 to-pink-500/10 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-4xl font-bold text-yellow-400 mb-2">₳ 25,000</div>
+                <div className="text-4xl font-bold text-yellow-400 mb-2">XLM 25,000</div>
                 <div className="text-gray-300 mb-4">Weekly Prize Pool</div>
                 <div className="flex justify-center gap-8">
                   <div>

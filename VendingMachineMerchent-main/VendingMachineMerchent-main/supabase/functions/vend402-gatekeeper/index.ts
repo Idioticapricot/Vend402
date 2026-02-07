@@ -121,16 +121,19 @@ serve(async (req: Request) => {
  */
 async function handleGetChallenge(deviceId: string): Promise<Response> {
   try {
-    // Look up machine in database
+    // Look up machine in database including Owner Wallet
     const { data: machine, error: machineError } = await supabase
       .from("machines")
-      .select("id, price, api_key, owner_id")
+      .select("id, price, api_key, owner_id, owner:users!owner_id(wallet_address)")
       .eq("id", deviceId)
       .single()
 
     if (machineError || !machine) {
       return jsonResponse({ error: "Machine not found" }, 404)
     }
+
+    // Use the Machine Owner's wallet as the destination
+    const destinationWallet = machine.owner?.wallet_address || MERCHANT_ACCOUNT // Fallback only if join fails
 
     // Create challenge
     const challengeId = nanoid(16)
@@ -143,7 +146,7 @@ async function handleGetChallenge(deviceId: string): Promise<Response> {
       challenge_id: challengeId,
       device_id: deviceId,
       amount,
-      destination: MERCHANT_ACCOUNT,
+      destination: destinationWallet,
       memo: challengeId,
       expires_at: expiresAt,
       created_at: new Date().toISOString(),
@@ -160,7 +163,7 @@ async function handleGetChallenge(deviceId: string): Promise<Response> {
       challengeId,
       amount,
       asset: "XLM",
-      destination: MERCHANT_ACCOUNT,
+      destination: destinationWallet,
       memo: challengeId,
       expiresAt,
       ledgerExpiry: 0, // Would be set by Horizon ledger check if needed
@@ -219,10 +222,24 @@ async function handleVerifyPayment(deviceId: string, txHash: string, challengeId
     }
     const opsData = await opsResponse.json()
     // Inject operations into txn object so validation works
+    // Inject operations into txn object so validation works
     txn.operations = opsData._embedded.records
 
+    // Fetch Machine Owner's Wallet Address
+    const { data: machine } = await supabase
+      .from("machines")
+      .select("owner_id, owner:users!owner_id(wallet_address)") // Join with users table
+      .eq("id", deviceId)
+      .single()
+
+    if (!machine || !machine.owner || !machine.owner.wallet_address) {
+      return jsonResponse({ success: false, code: "CONFIGURATION_ERROR", message: "Machine owner has no wallet connected" }, 400)
+    }
+
+    const merchantWallet = machine.owner.wallet_address
+
     // Validate transaction properties
-    const validation = validateTransaction(txn, deviceId, challengeId)
+    const validation = validateTransaction(txn, deviceId, merchantWallet, challengeId)
     if (!validation.valid) {
       return jsonResponse(
         {
@@ -317,6 +334,7 @@ async function handleVerifyPayment(deviceId: string, txHash: string, challengeId
 function validateTransaction(
   txn: any,
   deviceId: string,
+  expectedDestination: string,
   expectedMemo?: string,
 ): { valid: boolean; code?: string; message?: string } {
   try {
@@ -336,9 +354,14 @@ function validateTransaction(
       return { valid: false, code: "INVALID_TRANSACTION", message: "No payment operation found" }
     }
 
-    // Check destination is merchant account
-    if (paymentOp.to !== MERCHANT_ACCOUNT) {
-      return { valid: false, code: "WRONG_DESTINATION", message: "Payment sent to wrong account" }
+    // Check destination is merchant account (Dynamic check)
+    // The expected destination is passed from the DB lookup
+    if (paymentOp.to !== expectedDestination) {
+      return {
+        valid: false,
+        code: "WRONG_DESTINATION",
+        message: `Payment sent to wrong account. Expected: ${expectedDestination}, Got: ${paymentOp.to}`
+      }
     }
 
     // Check asset is XLM (native)

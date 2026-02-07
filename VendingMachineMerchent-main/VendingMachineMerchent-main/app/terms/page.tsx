@@ -40,19 +40,19 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">1. Acceptance of Terms</h2>
               <p className="text-gray-300 leading-relaxed">
-                By accessing and using AFL.so (the "Service"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+                By accessing and using Vend402 (the "Service"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">2. Description of Service</h2>
               <p className="text-gray-300 leading-relaxed mb-4">
-                AFL.so is a cryptocurrency fantasy league platform that allows users to:
+                Vend402 is a vending machine management platform that allows users to:
               </p>
               <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4">
                 <li>Create virtual portfolios using real cryptocurrency data</li>
                 <li>Compete against other users in matches and tournaments</li>
-                <li>Wager ALGO tokens on match outcomes</li>
+                <li>Accept XLM tokens for payments</li>
                 <li>Participate in leaderboards and ranking systems</li>
               </ul>
             </section>
@@ -78,15 +78,15 @@ export default function TermsPage() {
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-emerald-400">Deposits and Withdrawals</h3>
                 <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4">
-                  <li>All transactions are conducted in ALGO tokens on the Algorand blockchain</li>
+                  <li>All transactions are conducted in XLM tokens on the Stellar blockchain</li>
                   <li>Minimum deposit and withdrawal amounts may apply</li>
                   <li>Withdrawal processing times may vary based on network conditions</li>
                   <li>Users are responsible for any blockchain transaction fees</li>
                 </ul>
-                
+
                 <h3 className="text-lg font-semibold text-emerald-400">Wagering and Winnings</h3>
                 <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4">
-                  <li>All matches require an entry fee paid in ALGO</li>
+                  <li>All machines require an initial setup fee in XLM</li>
                   <li>Winnings are distributed automatically via smart contracts</li>
                   <li>Platform fees may be deducted from winnings</li>
                   <li>Disputed matches will be reviewed by our team</li>
@@ -126,7 +126,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">7. Limitation of Liability</h2>
               <p className="text-gray-300 leading-relaxed">
-                AFL.so shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of the service.
+                Vend402 shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of the service.
               </p>
             </section>
 
@@ -143,8 +143,8 @@ export default function TermsPage() {
                 If you have any questions about these Terms of Service, please contact us at:
               </p>
               <div className="mt-4 p-4 bg-gray-800/30 rounded-lg">
-                <p className="text-emerald-400">Email: legal@afl.so</p>
-                <p className="text-emerald-400">Discord: AFL.so Community</p>
+                <p className="text-emerald-400">Email: legal@vend402.so</p>
+                <p className="text-emerald-400">Discord: Vend402 Community</p>
               </div>
             </section>
           </motion.div>

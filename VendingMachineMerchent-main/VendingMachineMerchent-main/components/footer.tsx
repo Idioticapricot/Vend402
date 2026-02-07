@@ -20,10 +20,10 @@ export function Footer() {
               <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">A</span>
               </div>
-              <span className="text-xl font-bold text-white">AFL.so</span>
+              <span className="text-xl font-bold text-white">Vend402</span>
             </div>
             <p className="text-gray-400 mb-6 max-w-md">
-              The ultimate Algorand fantasy league. Build your squad, compete with others, and win big prizes in the most exciting crypto trading game.
+              The ultimate Stellar vending machine dashboard. Build your squad, compete with others, and win big prizes in the most exciting crypto trading game.
             </p>
             <div className="flex gap-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -83,7 +83,7 @@ export function Footer() {
           viewport={{ once: true }}
           className="border-t border-gray-800/50 mt-8 pt-8 text-center text-gray-400"
         >
-          <p>&copy; 2024 AFL.so - Algorand Fantasy League. All rights reserved.</p>
+          <p>&copy; 2024 Vend402 - Stellar Vending Machine. All rights reserved.</p>
         </motion.div>
       </div>
     </footer>
