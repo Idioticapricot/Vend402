@@ -5,10 +5,19 @@ Your ESP32 Vending Machine firmware is designed to be **provisioned wirelessly**
 
 ## Prerequisites
 1.  **Configure Firmware**: Open `QR_CODE.ino` and update:
-    *   `stellarConfig.merchantApiBase`: Your deployed app URL + `/api/` (e.g., `my-app.vercel.app/api/`).
-    *   `stellarConfig.paymentUrlBase`: Your deployed app URL + `/pay/` (e.g., `my-app.vercel.app/pay/`).
-2.  **Flash the Firmware**: Upload `QR_CODE.ino` to your ESP32.
-3.  **Register Machine**: Create a machine in the Merchant Dashboard and copy the **API Key**.
+    *   `stellarConfig.merchantApiBase`: Your deployed app URL + `/api/` (e.g., `vend402.vercel.app/api/`).
+    *   `stellarConfig.paymentUrlBase`: Your deployed app URL + `/pay/` (e.g., `vend402.vercel.app/pay/`).
+2.  **Setup Arduino IDE**:
+    *   **Install ESP32 Board**: File -> Preferences -> Additional Boards Manager URLs -> `https://dl.espressif.com/dl/package_esp32_index.json`. Then Tools -> Board -> Boards Manager -> Install `esp32` by Espressif.
+    *   **Install Libraries**: Tools -> Manage Libraries -> Install:
+        *   `TFT_eSPI` (by Bodmer)
+        *   `ArduinoJson` (by Benoit Blanchon)
+        *   `WebSockets` (by Markus Sattler)
+        *   `qrcode_espi` (if not found, copy the library folder manually or download .zip).
+    *   **Select Board**: Tools -> Board -> ESP32 Dev Module.
+    *   **Select Port**: Tools -> Port -> (Select your USB port).
+3.  **Flash the Firmware**: Click the "Upload" (Arrow) button.
+4.  **Register Machine**: Create a machine in the Merchant Dashboard and copy the **API Key**.
 
 ## Step-by-Step Provisioning
 

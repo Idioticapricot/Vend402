@@ -265,9 +265,9 @@ void initChainConfigs() {
   
   // IMPORTANT: Update these with your deployed URL (e.g. https://your-app.vercel.app/)
   // Ensure 'api/' is at the end of merchantApiBase
-  stellarConfig.merchantApiBase = "your-app-url.vercel.app/api/"; 
+  stellarConfig.merchantApiBase = "vend402.vercel.app/api/"; 
   // Ensure 'pay/' is at the end of paymentUrlBase
-  stellarConfig.paymentUrlBase = "your-app-url.vercel.app/pay/";
+  stellarConfig.paymentUrlBase = "vend402.vercel.app/pay/";
 
   // Set Algorand as default active chain
   activeChain = &algorandConfig;
