@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowLeft, Copy, Check } from "lucide-react"
 import { toast } from "sonner"
-// import algosdk, { getApplicationAddress } from 'algosdk'
+// import { Keypair } from '@stellar/stellar-sdk'
 
 interface Machine {
   id: string

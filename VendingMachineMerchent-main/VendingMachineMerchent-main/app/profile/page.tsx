@@ -52,9 +52,9 @@ export default function ProfilePage() {
 
   const getJoinDate = (user: User) => {
     const createdAt = new Date(user.created_at)
-    return createdAt.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long' 
+    return createdAt.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long'
     })
   }
 
@@ -119,8 +119,8 @@ export default function ProfilePage() {
                 className="relative"
               >
                 <Avatar className="w-24 h-24">
-                  <AvatarImage 
-                    src={user.user_metadata?.avatar_url || "/placeholder.svg"} 
+                  <AvatarImage
+                    src={user.user_metadata?.avatar_url || "/placeholder.svg"}
                     alt={getUserDisplayName(user)}
                     className="object-cover"
                   />
@@ -129,7 +129,7 @@ export default function ProfilePage() {
                   </AvatarFallback>
                 </Avatar>
               </motion.div>
-              
+
               <div className="flex-1 text-center md:text-left">
                 <h1 className="text-3xl font-bold text-white mb-2">
                   {getUserDisplayName(user)}
@@ -149,7 +149,7 @@ export default function ProfilePage() {
                   </span>
                 </div>
               </div>
-              
+
               <div className="flex gap-3">
                 <Button variant="outline" size="sm" className="border-gray-600 text-gray-300">
                   <Edit className="w-4 h-4 mr-2" />
@@ -175,9 +175,9 @@ export default function ProfilePage() {
               className="glass-card rounded-xl p-6 text-center"
             >
               <div className="text-3xl font-bold text-emerald-400 mb-2">2,847.50</div>
-              <div className="text-gray-400">Total ALGO Won</div>
+              <div className="text-gray-400">Total XLM Won</div>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -187,7 +187,7 @@ export default function ProfilePage() {
               <div className="text-3xl font-bold text-yellow-400 mb-2">156</div>
               <div className="text-gray-400">Matches Won</div>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -197,7 +197,7 @@ export default function ProfilePage() {
               <div className="text-3xl font-bold text-purple-400 mb-2">73.2%</div>
               <div className="text-gray-400">Win Rate</div>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -216,7 +216,7 @@ export default function ProfilePage() {
               <ProfileStats />
               <RecentMatches />
             </div>
-            
+
             {/* Sidebar */}
             <div className="space-y-6">
               {/* Achievements */}
@@ -270,7 +270,7 @@ export default function ProfilePage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Bonus Earned</span>
-                    <span className="text-emerald-400 font-bold">147.5 ALGO</span>
+                    <span className="text-emerald-400 font-bold">147.5 XLM</span>
                   </div>
                   <Button className="w-full bg-emerald-500 hover:bg-emerald-400 text-white">
                     Invite Friends

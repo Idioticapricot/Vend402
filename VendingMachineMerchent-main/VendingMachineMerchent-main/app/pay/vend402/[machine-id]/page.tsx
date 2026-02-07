@@ -1,6 +1,6 @@
 /**
  * Vend402PayPage - React component for handling Vend402 payments
- * Replaces the existing Algorand pay page flow with Stellar X402 payment
+ * Replaces the existing legacy pay page flow with Stellar X402 payment
  *
  * Usage:
  * - Deploy alongside existing NextJS app

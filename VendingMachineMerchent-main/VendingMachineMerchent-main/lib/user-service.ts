@@ -1,6 +1,6 @@
 import { prisma } from './prisma'
 import { Keypair } from '@stellar/stellar-sdk'
-// import { generateAlgorandAccount } from './algorand'
+// import { generateStellarAccount } from './stellar'
 import type { User } from '@supabase/supabase-js'
 
 export async function getUserByEmail(email: string) {

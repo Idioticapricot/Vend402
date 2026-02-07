@@ -21,14 +21,14 @@ export function ProfileStats() {
       className="glass-card rounded-xl p-6"
     >
       <h3 className="text-xl font-bold text-white mb-6">Performance Overview</h3>
-      
+
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div className="bg-emerald-500/10 rounded-lg p-4">
           <div className="flex items-center gap-2 mb-2">
             <TrendingUp className="w-5 h-5 text-emerald-400" />
             <span className="text-emerald-400 font-semibold">Total Profit</span>
           </div>
-          <div className="text-2xl font-bold text-white">+2,847.50 ALGO</div>
+          <div className="text-2xl font-bold text-white">+2,847.50 XLM</div>
           <div className="text-emerald-400 text-sm">+23.4% this month</div>
         </div>
 
@@ -37,7 +37,7 @@ export function ProfileStats() {
             <TrendingDown className="w-5 h-5 text-red-400" />
             <span className="text-red-400 font-semibold">Total Loss</span>
           </div>
-          <div className="text-2xl font-bold text-white">-892.30 ALGO</div>
+          <div className="text-2xl font-bold text-white">-892.30 XLM</div>
           <div className="text-red-400 text-sm">-8.1% this month</div>
         </div>
       </div>

@@ -59,13 +59,13 @@ export function LeaderboardScreen() {
   return (
     <div className="p-4 text-white min-h-[600px]">
       {/* Header */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="flex items-center justify-between mb-4"
       >
         <div>
-          <h1 className="text-xl font-bold">1,000 ALGO Leaderboard</h1>
+          <h1 className="text-xl font-bold">1,000 XLM Leaderboard</h1>
           <p className="text-sm text-gray-400">Win & Collect Trophies</p>
         </div>
         <Button className="bg-emerald-500 hover:bg-emerald-400 text-white px-4 py-2 rounded-lg text-sm">
@@ -74,7 +74,7 @@ export function LeaderboardScreen() {
       </motion.div>
 
       {/* Prize Banner */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 }}
@@ -84,8 +84,8 @@ export function LeaderboardScreen() {
           <div className="flex items-center gap-3">
             <div className="text-3xl">🏆</div>
             <div>
-              <h2 className="text-black font-bold text-lg">1,000 ALGO LEADERBOARD</h2>
-              <p className="text-black/80 text-sm">Top 10 players will win a share of the 1,000 ALGO prize pool</p>
+              <h2 className="text-black font-bold text-lg">1,000 XLM LEADERBOARD</h2>
+              <p className="text-black/80 text-sm">Top 10 players will win a share of the 1,000 XLM prize pool</p>
             </div>
           </div>
           <div className="text-right">
@@ -98,7 +98,7 @@ export function LeaderboardScreen() {
       </motion.div>
 
       {/* Top 3 Podium */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
@@ -148,7 +148,7 @@ export function LeaderboardScreen() {
                   <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
                     <span className="text-xs text-white">A</span>
                   </div>
-                  <span className="text-emerald-400">+{player.prize} ALGO</span>
+                  <span className="text-emerald-400">+{player.prize} XLM</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Trophy className="w-4 h-4 text-yellow-500" />

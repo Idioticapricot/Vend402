@@ -199,7 +199,7 @@ export default function DashboardPage() {
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">No vending machines yet</h3>
                 <p className="text-gray-400 mb-6 text-center max-w-md">
-                  Create your first vending machine to start accepting ALGO payments
+                  Create your first vending machine to start accepting XLM payments
                 </p>
                 <Button className="bg-emerald-500 hover:bg-emerald-400" onClick={() => setIsCreateModalOpen(true)}>
                   <Plus className="w-4 h-4 mr-2" />

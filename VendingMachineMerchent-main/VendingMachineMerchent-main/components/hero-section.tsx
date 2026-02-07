@@ -29,7 +29,7 @@ export function HeroSection() {
               className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"
             >
               Manage your vending machines with smart contracts. Create, deploy, and withdraw funds seamlessly on
-              Algorand.
+              Stellar.
               Manage your vending machines with secure payments. Create, deploy, and withdraw funds seamlessly on
               Stellar.
             </motion.p>
