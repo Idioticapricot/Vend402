@@ -42,7 +42,7 @@ export function TournamentScreen() {
   return (
     <div className="p-4 text-white min-h-[600px] flex flex-col">
       {/* Header */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-6"
@@ -65,7 +65,7 @@ export function TournamentScreen() {
       </motion.div>
 
       {/* Main Tournament Card */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3 }}
@@ -81,31 +81,31 @@ export function TournamentScreen() {
         </div>
 
         <div className="relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
             className="text-center mb-4"
           >
-            <h2 className="text-sm text-teal-300 mb-2">ALGORAND</h2>
+            <h2 className="text-sm text-teal-300 mb-2">STELLAR</h2>
             <h1 className="text-lg font-bold text-emerald-300 mb-4">FANTASY LEAGUE</h1>
-            
+
             <div className="mb-4">
-              <div className="text-yellow-400 text-2xl font-bold mb-1">JOIN WITH 5 ALGO AND</div>
+              <div className="text-yellow-400 text-2xl font-bold mb-1">JOIN WITH 5 XLM AND</div>
               <div className="text-yellow-400 text-lg font-bold mb-2">WIN TOTAL PRIZES OF</div>
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.7, type: "spring", stiffness: 200 }}
                 className="text-yellow-400 text-4xl font-bold"
               >
-                550.00 ALGO
+                550.00 XLM
               </motion.div>
             </div>
 
             <div className="mb-6">
               <div className="text-white text-sm mb-2">Tournament Will Start In</div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.9 }}
@@ -128,12 +128,12 @@ export function TournamentScreen() {
                 Prize Detail
               </Button>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </motion.div>
 
       {/* Tournament Details */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.1 }}
@@ -146,7 +146,7 @@ export function TournamentScreen() {
           </div>
           <span className="text-white">5m Match</span>
         </div>
-        
+
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center gap-2 text-gray-400">
             <Users className="w-4 h-4" />
@@ -157,14 +157,14 @@ export function TournamentScreen() {
             <span className="text-white">48/100</span>
           </div>
         </div>
-        
+
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center gap-2 text-gray-400">
             <Settings className="w-4 h-4" />
             <span>Entry Options</span>
           </div>
         </div>
-        
+
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center gap-2 text-gray-400">
             <Users className="w-4 h-4" />
@@ -178,7 +178,7 @@ export function TournamentScreen() {
       </motion.div>
 
       {/* Join Button */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.3 }}
@@ -189,9 +189,9 @@ export function TournamentScreen() {
           whileTap={{ scale: 0.98 }}
         >
           <Button className="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-4 rounded-xl text-lg">
-            Join with ALGO
+            Join with XLM
             <div className="ml-2 bg-black/20 px-2 py-1 rounded text-sm">
-              0.03
+              5.0
             </div>
           </Button>
         </motion.div>

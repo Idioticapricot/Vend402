@@ -13,10 +13,10 @@ export function ReferralHero() {
         <span className="text-4xl">🎁</span>
       </div>
       <h1 className="text-5xl font-bold text-white mb-4">
-        Welcome to AFL.so!
+        Welcome to Vend402!
       </h1>
       <p className="text-xl text-gray-300">
-        You've been invited to join the ultimate Algorand fantasy league
+        You've been invited to join the ultimate Stellar vending machine platform
       </p>
     </motion.div>
   )

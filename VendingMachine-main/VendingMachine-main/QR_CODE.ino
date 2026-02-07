@@ -76,6 +76,18 @@ struct ChainConfig {
 ChainConfig algorandConfig;
 ChainConfig cardanoConfig;
 ChainConfig* activeChain = nullptr;
+ChainConfig stellarConfig;
+
+// ========== VEND402 STATE ==========
+struct Vend402State {
+  bool enabled = true;
+  String gatekeeperUrl = "";
+  String machineId = "";
+  bool wsConnected = false;
+  unsigned long lastWsAttempt = 0;
+  const unsigned long WS_RETRY_INTERVAL = 5000;
+};
+Vend402State vend402;
 
 // Display rotation setting (0 or 2 for 0° or 180°)
 // Default to 180° (value 2) because hardware is assembled upside down
@@ -142,6 +154,13 @@ String generateProvisioningPage() {
   }
   
   html += R"rawliteral(">Cardano</option>
+          <option value="stellar")rawliteral";
+  
+  if (activeChain && activeChain->name == "stellar") {
+    html += R"rawliteral( selected)rawliteral";
+  }
+  
+  html += R"rawliteral(">Stellar (Vend402)</option>
         </select><br>
         
         <button type="submit">Save and Connect</button>
@@ -238,6 +257,18 @@ void initChainConfigs() {
   cardanoConfig.merchantApiBase = "cardano-vending-merchant.vercel.app/api/";
   cardanoConfig.paymentUrlBase = "cardano-vending-machine.vercel.app/pay/";
 
+  // Initialize Stellar configuration
+  stellarConfig.name = "stellar";
+  stellarConfig.supabaseUrl = "mrsvbhcsbwxkrpzrrvun.supabase.co"; 
+  // IMPORTANT: Update this with your Supabase Anon Key from the Dashboard
+  stellarConfig.supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yc3ZiaGNzYnd4a3JwenJydnVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzODYyNzQsImV4cCI6MjA4NTk2MjI3NH0.7-12mrWqMr7vu_fj83lyRo3L-DCR62JpQuzLqzSp9GI";
+  
+  // IMPORTANT: Update these with your deployed URL (e.g. https://your-app.vercel.app/)
+  // Ensure 'api/' is at the end of merchantApiBase
+  stellarConfig.merchantApiBase = "your-app-url.vercel.app/api/"; 
+  // Ensure 'pay/' is at the end of paymentUrlBase
+  stellarConfig.paymentUrlBase = "your-app-url.vercel.app/pay/";
+
   // Set Algorand as default active chain
   activeChain = &algorandConfig;
   
@@ -285,6 +316,8 @@ void saveSettings() {
 void setActiveChain(String chainName) {
   if (chainName == "cardano") {
     activeChain = &cardanoConfig;
+  } else if (chainName == "stellar") {
+    activeChain = &stellarConfig;
   } else {
     // Default to Algorand for any invalid or unrecognized chain name
     activeChain = &algorandConfig;
@@ -723,6 +756,15 @@ void handleWebSocketMessage(uint8_t * payload, size_t length) {
       
       // Start dispensing sequence
       startDispensing();
+    } else if (eventName == "vend402_dispense") {
+      String txHash = broadcastPayload["payload"]["txHash"];
+      String challengeId = broadcastPayload["payload"]["challengeId"];
+      
+      Serial.println("=== VEND402 PAYMENT ===");
+      Serial.println("TX: " + txHash);
+      Serial.println("Challenge: " + challengeId);
+      
+      startDispensing();
     }
   }
 }
@@ -795,6 +837,31 @@ void clearSavedData() {
   ESP.restart();
 }
 
+// ========== VEND402 HELPERS ==========
+
+void setupVend402() {
+  vend402.machineId = "machine-" + String(random(1000000));
+  if (lastDeviceId.length() > 0) {
+    vend402.machineId = "machine-" + lastDeviceId;
+  }
+  
+  if (activeChain && activeChain->name == "stellar") {
+     // For Stellar, merchantApiBase is used as gatekeeper URL suffix
+     // Construct proper URL if needed, or assume it's set correctly
+     // vend402.gatekeeperUrl = String("https://") + activeChain->supabaseUrl + "/functions/v1/vend402-gatekeeper";
+     Serial.println("[Vend402] Stellar Active. ID: " + vend402.machineId);
+  }
+}
+
+void connectVend402Realtime() {
+   // Reusing existing WebSocket connection logic since it connects to Supabase
+   // which is what Vend402 uses.
+   // Just ensuring we subscribe to the right channel?
+   // Existing logic subscribes to "realtime:machine-" + lastDeviceId
+   // Vend402 uses same convention.
+}
+
+
 // ---------- Setup & Loop ----------
 
 void setup() {
@@ -806,6 +873,7 @@ void setup() {
 
   // Initialize blockchain configurations
   initChainConfigs();
+  setupVend402();
   
   // Load saved settings (blockchain selection and display rotation)
   loadSettings();

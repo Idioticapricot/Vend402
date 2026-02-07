@@ -29,7 +29,9 @@ export function HeroSection() {
               className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"
             >
               Manage your vending machines with smart contracts. Create, deploy, and withdraw funds seamlessly on
-              Algorand.
+              Stellar.
+              Manage your vending machines with secure payments. Create, deploy, and withdraw funds seamlessly on
+              Stellar.
             </motion.p>
 
             <motion.div
@@ -68,9 +70,9 @@ export function HeroSection() {
               <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Wallet className="w-8 h-8 text-yellow-400" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">2. Accept ALGO Payments</h3>
+              <h3 className="text-xl font-bold text-white mb-2">2. Accept XLM Payments</h3>
               <p className="text-gray-400">
-                Customers deposit ALGO to purchase items from your vending machine automatically
+                Customers deposit XLM to purchase items from your vending machine automatically
               </p>
             </div>
 
@@ -80,7 +82,7 @@ export function HeroSection() {
               </div>
               <h3 className="text-xl font-bold text-white mb-2">3. Withdraw Funds</h3>
               <p className="text-gray-400">
-                Easily withdraw accumulated ALGO from your vending machines to your wallet
+                Easily withdraw accumulated XLM from your vending machines to your wallet
               </p>
             </div>
           </motion.div>

@@ -10,7 +10,7 @@ export default function HelpPage() {
     {
       icon: Book,
       title: "Getting Started",
-      description: "Learn the basics of AFL.so",
+      description: "Learn the basics of Vend402",
       articles: [
         "How to create your first portfolio",
         "Understanding Long vs Short strategies",
@@ -34,8 +34,8 @@ export default function HelpPage() {
       title: "Account & Wallet",
       description: "Manage your account and funds",
       articles: [
-        "Connecting your Algorand wallet",
-        "Depositing and withdrawing ALGO",
+        "Connecting your Stellar wallet",
+        "Depositing and withdrawing XLM",
         "Account security best practices",
         "Referral program guide"
       ]
@@ -56,7 +56,7 @@ export default function HelpPage() {
   const faqs = [
     {
       question: "How does the fantasy league work?",
-      answer: "AFL.so is a crypto fantasy league where you build portfolios of tokens and compete against other players. You win by achieving better performance than your opponents based on real market data."
+      answer: "Vend402 is a decentralized vending machine platform where you can manage machines and accept crypto payments."
     },
     {
       question: "What is the difference between Long and Short strategies?",
@@ -67,8 +67,8 @@ export default function HelpPage() {
       answer: "Winnings are based on your portfolio's performance relative to your opponent's. The better your portfolio performs according to your chosen strategy, the more you win."
     },
     {
-      question: "Is my ALGO safe?",
-      answer: "Yes, all funds are secured using Algorand's blockchain technology. We use smart contracts to ensure fair play and automatic payouts."
+      question: "Is my XLM safe?",
+      answer: "Yes, all funds are secured using Stellar's blockchain technology. We use smart contracts to ensure fair play and automatic payouts."
     }
   ]
 
@@ -93,9 +93,9 @@ export default function HelpPage() {
             </motion.div>
             <h1 className="text-5xl font-bold text-white mb-4">Help Center</h1>
             <p className="text-xl text-gray-300 mb-8">
-              Find answers to your questions and learn how to master AFL.so
+              Find answers to your questions and learn how to master Vend402
             </p>
-            
+
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />

@@ -15,7 +15,7 @@ export function TeamScreen() {
   return (
     <div className="p-4 text-white min-h-[600px] relative">
       {/* Header */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="flex items-center justify-between mb-4"
@@ -25,7 +25,7 @@ export function TeamScreen() {
             <span className="text-lg">🎮</span>
           </div>
           <div>
-            <h1 className="font-bold">testingalgo7</h1>
+            <h1 className="font-bold">testinguser7</h1>
             <p className="text-emerald-400 text-sm">Claim SNS</p>
           </div>
         </div>
@@ -37,7 +37,7 @@ export function TeamScreen() {
       </motion.div>
 
       {/* Announcement Banner */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 }}
@@ -51,7 +51,7 @@ export function TeamScreen() {
       </motion.div>
 
       {/* Trophy and Referrals */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
@@ -85,7 +85,7 @@ export function TeamScreen() {
       </motion.div>
 
       {/* Team Formation */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.6 }}
@@ -141,7 +141,7 @@ export function TeamScreen() {
       </motion.div>
 
       {/* Action Buttons */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2 }}
@@ -163,7 +163,7 @@ export function TeamScreen() {
       </motion.div>
 
       {/* Add New */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.4 }}

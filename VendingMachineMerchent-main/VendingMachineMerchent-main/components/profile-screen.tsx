@@ -8,7 +8,7 @@ export function ProfileScreen() {
   return (
     <div className="p-4 text-white min-h-[600px]">
       {/* Profile Header */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="flex items-center justify-between mb-6"
@@ -18,7 +18,7 @@ export function ProfileScreen() {
             <span className="text-xl">🎮</span>
           </div>
           <div>
-            <h1 className="font-bold text-lg">testingalgo7</h1>
+            <h1 className="font-bold text-lg">testinguser7</h1>
             <p className="text-gray-400 text-sm">5WbC****H9KJ</p>
           </div>
         </div>
@@ -29,7 +29,7 @@ export function ProfileScreen() {
       </motion.div>
 
       {/* Balance */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 }}
@@ -45,7 +45,7 @@ export function ProfileScreen() {
       </motion.div>
 
       {/* Action Buttons */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
@@ -66,7 +66,7 @@ export function ProfileScreen() {
       </motion.div>
 
       {/* Tabs */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
@@ -84,7 +84,7 @@ export function ProfileScreen() {
       </motion.div>
 
       {/* No Active Matches */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}

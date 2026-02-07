@@ -13,13 +13,13 @@ export function StatsSection() {
     },
     {
       icon: Trophy,
-      value: "₳ 2.4M",
+      value: "XLM 2.4M",
       label: "Total Prizes Won",
       color: "text-yellow-400"
     },
     {
       icon: Coins,
-      value: "₳ 45K",
+      value: "XLM 45K",
       label: "Daily Volume",
       color: "text-blue-400"
     },
@@ -44,7 +44,7 @@ export function StatsSection() {
             Join Thousands of Players
           </h2>
           <p className="text-xl text-gray-300">
-            The most exciting crypto fantasy league on Algorand
+            The most exciting crypto fantasy league on Stellar
           </p>
         </motion.div>
 
