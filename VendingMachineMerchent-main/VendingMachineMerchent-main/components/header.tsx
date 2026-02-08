@@ -80,8 +80,6 @@ export function Header() {
           fetchWalletBalance(userData.user.wallet_address)
         }
         setIsAuthModalOpen(false)
-        toast.success("Successfully signed in!")
-        router.push("/dashboard")
       } else if (event === "SIGNED_OUT") {
         setDbUser(null)
         setWalletBalance(null)
@@ -125,19 +123,17 @@ export function Header() {
 
   return (
     <>
-      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="border-b border-slate-800 bg-[#0B1121]/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-600 to-purple-600" />
-            <span className="text-xl font-bold">Vend402</span>
+          <Link href="/" className="flex items-center space-x-3 group pl-2">
+            <div className="h-9 w-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-500/20 transition-colors">
+              <Wallet className="h-5 w-5 text-emerald-500" />
+            </div>
+            <span className="text-lg font-bold text-white tracking-tight">Vend402</span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-6">
-            {user && (
-              <Link href="/dashboard" className="text-sm font-medium hover:text-primary transition-colors">
-                Dashboard
-              </Link>
-            )}
+            {/* Navigation items removed as requested */}
           </nav>
 
           <div className="flex items-center space-x-4">

@@ -5,12 +5,12 @@ import { HeroSection } from "@/components/hero-section"
 
 export default function StellarVendingMachine() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-600 via-teal-700 to-emerald-800 relative overflow-hidden stadium-bg">
-      {/* Stadium Background */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-emerald-900/50" />
-        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-emerald-800/40 to-transparent" />
-      </div>
+    <div className="min-h-screen bg-[#0B1121] text-slate-200 selection:bg-emerald-500/30 selection:text-emerald-200 relative overflow-hidden">
+      {/* Grid Background */}
+      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20 pointer-events-none" />
+
+      {/* Ambient Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-emerald-500/20 blur-[120px] rounded-full pointer-events-none opacity-30" />
 
       <div className="relative z-10">
         <Header />

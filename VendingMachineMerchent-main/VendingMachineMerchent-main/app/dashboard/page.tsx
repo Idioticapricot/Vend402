@@ -15,7 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Plus, Copy, Check } from "lucide-react"
+import { Plus, Copy, Check, ArrowRight } from "lucide-react"
 import { toast } from "sonner"
 
 interface Machine {
@@ -123,67 +123,76 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-600 via-teal-700 to-emerald-800">
+      <div className="min-h-screen bg-[#0B1121] text-slate-200">
         <Header />
         <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
-          <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin" />
+          <div className="w-12 h-12 border-4 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin" />
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-600 via-teal-700 to-emerald-800">
+    <div className="min-h-screen bg-[#0B1121] text-slate-200">
+      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20 pointer-events-none" />
       <Header />
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
+      <main className="container mx-auto px-4 py-8 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-6 border-b border-slate-800/60">
             <div>
-              <h1 className="text-4xl font-bold text-white mb-2">Your Vending Machines</h1>
-              <p className="text-gray-300">Manage your smart contract vending machines ({machines.length} machines)</p>
+              <h1 className="text-4xl font-extrabold text-white tracking-tight mb-2">Your Vending Machines</h1>
+              <p className="text-slate-400">Manage your fleet and payment configurations</p>
             </div>
 
             <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-emerald-500 hover:bg-emerald-400">
+                <Button className="bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20 border border-emerald-500/20 transition-all hover:scale-105 active:scale-95">
                   <Plus className="w-4 h-4 mr-2" />
                   Create New Machine
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="bg-slate-900 border-slate-700 text-white sm:max-w-md">
                 <DialogHeader>
-                  <DialogTitle>Create New Vending Machine</DialogTitle>
-                  <DialogDescription>Deploy a new smart contract for your vending machine</DialogDescription>
+                  <DialogTitle className="text-xl font-bold">New Vending Machine</DialogTitle>
+                  <DialogDescription className="text-slate-400">
+                    Register a new device to start accepting Stellar XLM payments.
+                  </DialogDescription>
                 </DialogHeader>
 
-                <div className="space-y-4 py-4">
-                  <div>
-                    <label className="text-sm font-medium text-gray-300 mb-2 block">
+                <div className="space-y-6 py-4">
+                  <div className="space-y-2">
+                    <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
                       Product Price (XLM)
                     </label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      min="0"
-                      placeholder="0.00"
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
-                      className="w-full px-3 py-2 bg-gray-900/50 border border-gray-700 rounded text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500"
-                    />
+                    <div className="relative">
+                      <input
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        placeholder="0.00"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        className="w-full pl-3 pr-12 py-3 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-mono text-lg"
+                      />
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 font-bold text-sm pointer-events-none">
+                        XLM
+                      </div>
+                    </div>
                   </div>
                   <Button
-                    className="w-full bg-emerald-500 hover:bg-emerald-400"
+                    className="w-full bg-emerald-600 hover:bg-emerald-500 text-white"
+                    size="lg"
                     onClick={handleCreateMachine}
                     disabled={isCreating}
                   >
                     {isCreating ? (
                       <>
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                        Deploying Contract...
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                        Creating...
                       </>
                     ) : (
-                      'Create Machine'
+                      'Register Machine'
                     )}
                   </Button>
                 </div>
@@ -192,18 +201,21 @@ export default function DashboardPage() {
           </div>
 
           {machines.length === 0 ? (
-            <Card className="glass-card border-gray-700">
-              <CardContent className="flex flex-col items-center justify-center py-16">
-                <div className="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mb-4">
-                  <Plus className="w-10 h-10 text-emerald-400" />
+            <Card className="bg-slate-900/40 border-slate-800 backdrop-blur-sm shadow-xl">
+              <CardContent className="flex flex-col items-center justify-center py-24">
+                <div className="w-20 h-20 bg-slate-800/50 rounded-full flex items-center justify-center mb-6 border border-slate-700">
+                  <Plus className="w-8 h-8 text-slate-500" />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">No vending machines yet</h3>
-                <p className="text-gray-400 mb-6 text-center max-w-md">
-                  Create your first vending machine to start accepting XLM payments
+                <h3 className="text-xl font-bold text-white mb-2">No machines configured</h3>
+                <p className="text-slate-400 mb-8 text-center max-w-sm">
+                  Register your first vending machine to generate a Machine ID and start accepting payments.
                 </p>
-                <Button className="bg-emerald-500 hover:bg-emerald-400" onClick={() => setIsCreateModalOpen(true)}>
+                <Button
+                  className="bg-emerald-600 hover:bg-emerald-500"
+                  onClick={() => setIsCreateModalOpen(true)}
+                >
                   <Plus className="w-4 h-4 mr-2" />
-                  Create Your First Machine
+                  Get Started
                 </Button>
               </CardContent>
             </Card>
@@ -212,89 +224,106 @@ export default function DashboardPage() {
               {machines.map((machine) => (
                 <Card
                   key={machine.id}
-                  className="glass-card border-gray-700 hover:border-emerald-500/30 transition-colors"
+                  className="bg-slate-900/40 border-slate-800 backdrop-blur-sm hover:border-emerald-500/30 hover:bg-slate-900/60 transition-all group shadow-lg"
                 >
-                  <CardHeader>
+                  <CardHeader className="border-b border-slate-800/60 pb-4">
                     <div className="flex items-start justify-between">
                       <div>
-                        <CardTitle className="text-white">Machine #{machine.id.slice(-8)}</CardTitle>
-                        <CardDescription className="text-gray-400">
-                          Created {new Date(machine.created_at).toLocaleDateString()} • {machine.price} XLM
+                        <CardTitle className="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">
+                          Machine #{machine.id.slice(-8)}
+                        </CardTitle>
+                        <CardDescription className="text-slate-500 mt-1 flex items-center gap-2">
+                          <span>Date: {new Date(machine.created_at).toLocaleDateString()}</span>
+                          <span className="w-1 h-1 bg-slate-600 rounded-full" />
+                          <span className="text-slate-300 font-medium">{machine.price} XLM</span>
                         </CardDescription>
                       </div>
                       <Button
-                        variant="ghost"
+                        variant="secondary"
                         size="sm"
-                        className="text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10"
+                        className="bg-slate-800 hover:bg-emerald-500/20 hover:text-emerald-400 text-slate-300 border border-slate-700 hover:border-emerald-500/30 transition-all"
                         onClick={() => router.push(`/machine/${machine.id}`)}
                       >
-                        Details
+                        Analytics <ArrowRight className="w-3 h-3 ml-2 opacity-60" />
                       </Button>
                     </div>
                   </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div>
-                      <label className="text-gray-400 text-sm font-medium">1) Receiving Wallet Address</label>
-                      <div className="flex items-center gap-2 mt-1">
-                        <code className="flex-1 bg-gray-900/50 px-3 py-2 rounded text-sm text-gray-300 font-mono truncate">
-                          {machine.machine_contract_address || "Not Set"}
-                        </code>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          className="h-8 w-8 border-gray-700 hover:bg-gray-800 bg-transparent"
-                          onClick={() => {
-                            if (machine.machine_contract_address) {
-                              navigator.clipboard.writeText(machine.machine_contract_address)
-                              toast.success("Wallet address copied!")
-                            }
-                          }}
-                        >
-                          <Copy className="w-3.5 h-3.5" />
-                        </Button>
-                      </div>
-                    </div>
+                  <CardContent className="space-y-5 pt-5">
 
-                    <div>
-                      <label className="text-gray-400 text-sm font-medium">2) Machine ID (Memo)</label>
-                      <div className="flex items-center gap-2 mt-1">
-                        <code className="flex-1 bg-gray-900/50 px-3 py-2 rounded text-sm text-yellow-400 font-mono font-bold tracking-wider break-all">
-                          {machine.id}
-                        </code>
+                    {/* ID */}
+                    <div className="group/field">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Machine ID (Memo)</label>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 bg-slate-950/50 border border-slate-800 rounded-md px-3 py-2 group-hover/field:border-slate-700 transition-colors">
+                          <code className="text-sm text-amber-400 font-mono font-bold truncate block">
+                            {machine.id}
+                          </code>
+                        </div>
                         <Button
-                          variant="outline"
+                          variant="ghost"
                           size="icon"
-                          className="h-8 w-8 border-gray-700 hover:bg-gray-800 bg-transparent"
+                          className="h-9 w-9 text-slate-500 hover:text-white hover:bg-slate-800"
                           onClick={() => {
                             navigator.clipboard.writeText(machine.id)
                             toast.success("Machine ID copied!")
                           }}
                         >
-                          <Copy className="w-3.5 h-3.5" />
+                          <Copy className="w-4 h-4" />
                         </Button>
                       </div>
                     </div>
 
-                    <div>
-                      <label className="text-gray-400 text-sm font-medium">3) API Key</label>
-                      <div className="flex items-center gap-2 mt-1">
-                        <code className="flex-1 bg-gray-900/50 px-3 py-2 rounded text-sm text-gray-300 font-mono truncate">
-                          {machine.api_key}
-                        </code>
+                    {/* API Key */}
+                    <div className="group/field">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">API Key</label>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 bg-slate-950/50 border border-slate-800 rounded-md px-3 py-2 group-hover/field:border-slate-700 transition-colors">
+                          <code className="text-xs text-slate-300 font-mono truncate block">
+                            {machine.api_key}
+                          </code>
+                        </div>
                         <Button
-                          variant="outline"
+                          variant="ghost"
                           size="icon"
-                          className="h-8 w-8 border-gray-700 hover:bg-gray-800 bg-transparent"
+                          className="h-9 w-9 text-slate-500 hover:text-white hover:bg-slate-800"
                           onClick={() => handleCopyApiKey(machine.api_key, machine.id)}
                         >
                           {copiedId === machine.id ? (
-                            <Check className="w-3.5 h-3.5 text-emerald-400" />
+                            <Check className="w-4 h-4 text-emerald-400" />
                           ) : (
-                            <Copy className="w-3.5 h-3.5" />
+                            <Copy className="w-4 h-4" />
                           )}
                         </Button>
                       </div>
                     </div>
+
+                    {/* Wallet (Collapsed View) */}
+                    <div className="pt-2 border-t border-slate-800/60 mt-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-slate-500">Receiving Wallet</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-slate-400 font-mono truncate max-w-[150px]">
+                            {machine.machine_contract_address || "Not Set"}
+                          </span>
+                          <button
+                            onClick={() => {
+                              if (machine.machine_contract_address) {
+                                navigator.clipboard.writeText(machine.machine_contract_address)
+                                toast.success("Wallet address copied!")
+                              }
+                            }}
+                            className="text-slate-500 hover:text-emerald-400 transition-colors"
+                          >
+                            <Copy className="w-3 h-3" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
                   </CardContent>
                 </Card>
               ))}

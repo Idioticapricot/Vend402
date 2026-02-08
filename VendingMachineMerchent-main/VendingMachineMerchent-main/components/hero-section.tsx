@@ -2,94 +2,126 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Wallet, ShoppingCart, DollarSign } from "lucide-react"
+import { Wallet, Box, ArrowRight, Activity, Zap } from "lucide-react"
 import { useState } from "react"
 import { AuthModal } from "./auth-modal"
 
 export function HeroSection() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+  }
+
   return (
     <>
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-20 lg:py-32 overflow-hidden">
         <div className="container mx-auto px-4 text-center relative z-10">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <h1 className="text-6xl md:text-8xl font-bold text-white mb-6">
-              <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                Vending Machine
+          <motion.div
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="max-w-4xl mx-auto"
+          >
+            <motion.div variants={item} className="inline-flex items-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-sm font-medium text-emerald-300 mb-8 backdrop-blur-sm">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
+              Stellar Network Integrated
+            </motion.div>
+
+            <motion.h1 variants={item} className="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+              Next-Gen Payments for <br className="hidden md:block" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+                IoT Vending Machines
               </span>
-              <br />
-              Dashboard
-            </h1>
+            </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"
+              variants={item}
+              className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed"
             >
-              Manage your vending machines with smart contracts. Create, deploy, and withdraw funds seamlessly on
-              Stellar.
-              Manage your vending machines with secure payments. Create, deploy, and withdraw funds seamlessly on
-              Stellar.
+              Accept XLM instantly. Manage your fleet in real-time. Deploy smart contracts with zero code. The complete vending solution for the Stellar ecosystem.
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+              variants={item}
+              className="flex flex-col sm:flex-row gap-4 justify-center mb-20"
             >
               <Button
-                className="bg-emerald-500 hover:bg-emerald-400 text-white px-8 py-4 text-lg"
+                size="lg"
+                className="bg-emerald-600 hover:bg-emerald-500 text-white px-8 h-14 text-lg shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)] transition-all hover:scale-105"
                 onClick={() => setIsAuthModalOpen(true)}
               >
-                <Wallet className="w-5 h-5 mr-2" />
-                Login with Google
+                Start Accepting Payments
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 h-14 text-lg px-8"
+                onClick={() => window.open('https://stellar.org', '_blank')}
+              >
+                Learn about Stellar
               </Button>
             </motion.div>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.8 }}
-            className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto"
-          >
-            <div className="glass-card rounded-xl p-6">
-              <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ShoppingCart className="w-8 h-8 text-emerald-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">1. Create Vending Machine</h3>
-              <p className="text-gray-400">
-                Deploy a smart contract for your vending machine with custom pricing and inventory settings
-              </p>
-            </div>
-
-            <div className="glass-card rounded-xl p-6">
-              <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Wallet className="w-8 h-8 text-yellow-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">2. Accept XLM Payments</h3>
-              <p className="text-gray-400">
-                Customers deposit XLM to purchase items from your vending machine automatically
-              </p>
-            </div>
-
-            <div className="glass-card rounded-xl p-6">
-              <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <DollarSign className="w-8 h-8 text-purple-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">3. Withdraw Funds</h3>
-              <p className="text-gray-400">
-                Easily withdraw accumulated XLM from your vending machines to your wallet
-              </p>
-            </div>
+            <motion.div
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="grid md:grid-cols-3 gap-6 text-left"
+            >
+              <FeatureCard
+                icon={<Box className="w-6 h-6 text-emerald-400" />}
+                title="Smart Contract Deployment"
+                description="Deploy a unique contract for each machine with custom pricing and inventory logic efficiently."
+              />
+              <FeatureCard
+                icon={<Zap className="w-6 h-6 text-amber-400" />}
+                title="Instant XLM Settlements"
+                description="Payments land directly in your wallet. No intermediaries, no holding periods, near-zero fees."
+              />
+              <FeatureCard
+                icon={<Activity className="w-6 h-6 text-cyan-400" />}
+                title="Real-time Analytics"
+                description="Track sales, monitor volume, and visualize revenue growth with our professional dashboard."
+              />
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </>
+  )
+}
+
+function FeatureCard({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  }
+
+  return (
+    <motion.div variants={item} className="bg-slate-900/40 border border-slate-800/60 p-6 rounded-2xl hover:bg-slate-900/60 hover:border-emerald-500/20 transition-all group backdrop-blur-sm">
+      <div className="w-12 h-12 bg-slate-800/50 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 border border-slate-700/50">
+        {icon}
+      </div>
+      <h3 className="text-lg font-bold text-white mb-2">{title}</h3>
+      <p className="text-slate-400 text-sm leading-relaxed">
+        {description}
+      </p>
+    </motion.div>
   )
 }
