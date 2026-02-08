@@ -3,11 +3,31 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Wallet, Box, ArrowRight, Activity, Zap } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { supabase } from "@/lib/supabase"
 import { AuthModal } from "./auth-modal"
 
 export function HeroSection() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [user, setUser] = useState<any>(null)
+  const router = useRouter()
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      setUser(session?.user ?? null)
+    }
+    checkUser()
+  }, [])
+
+  const handleStart = () => {
+    if (user) {
+      router.push("/dashboard")
+    } else {
+      setIsAuthModalOpen(true)
+    }
+  }
 
   const container = {
     hidden: { opacity: 0 },
@@ -60,9 +80,9 @@ export function HeroSection() {
               <Button
                 size="lg"
                 className="bg-emerald-600 hover:bg-emerald-500 text-white px-8 h-14 text-lg shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)] transition-all hover:scale-105"
-                onClick={() => setIsAuthModalOpen(true)}
+                onClick={handleStart}
               >
-                Start Accepting Payments
+                {user ? "Go to Dashboard" : "Start Accepting Payments"}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <Button
