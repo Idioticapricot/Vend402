@@ -296,7 +296,7 @@ export default function MachinePage() {
                               </td>
                               <td className="px-6 py-4 text-right">
                                 <a
-                                  href={`https://testnet.stellarchain.io/transactions/${tx.tx_hash}`}
+                                  href={`https://stellar.expert/explorer/testnet/tx/${tx.tx_hash}`}
                                   target="_blank"
                                   rel="noreferrer"
                                   className="inline-flex items-center text-xs font-medium text-slate-400 hover:text-white transition-colors hover:underline decoration-slate-600 underline-offset-4"

@@ -167,7 +167,7 @@ async function handleGetChallenge(deviceId: string): Promise<Response> {
       memo: challengeId,
       expiresAt,
       ledgerExpiry: 0, // Would be set by Horizon ledger check if needed
-      message: `Pay ${(Number(amount) / 10_000_000).toFixed(2)} XLM to dispense item`,
+      message: `Pay ${new Intl.NumberFormat("en-US", { maximumFractionDigits: 7 }).format(Number(amount) / 10_000_000)} XLM to dispense item`,
     }
 
     // Return 402 Payment Required with challenge

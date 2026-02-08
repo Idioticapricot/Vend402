@@ -393,7 +393,7 @@ export default function Vend402PayPage() {
                 {txHash && (
                   <div className="bg-slate-900 rounded-lg p-3 mb-6 border border-green-500/20">
                     <p className="text-gray-500 text-xs uppercase mb-1">Transaction ID</p>
-                    <p className="text-green-400 text-xs font-mono break-all">{txHash}</p>
+                    <a href={`https://stellar.expert/explorer/testnet/tx/${txHash}`} target="_blank" rel="noopener noreferrer" className="text-green-400 text-xs font-mono break-all hover:underline">{txHash}</a>
                   </div>
                 )}
 
