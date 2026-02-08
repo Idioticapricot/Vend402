@@ -63,14 +63,18 @@ export default function Vend402PayPage() {
   useEffect(() => {
     const loadMachine = async () => {
       try {
-        // For now, simulate machine loading
-        // In real app, fetch from your API or Supabase
-        setMachineDetails({
-          id: machineId,
-          price: 0.5, // Default price
-          api_key: "demo-key",
-          owner_id: "owner-1",
-        })
+        // Fetch machine details from API
+        const response = await fetch(`/api/machines/${machineId}`)
+        if (!response.ok) {
+          throw new Error("Machine not found")
+        }
+        const data = await response.json()
+
+        if (data.machine) {
+          setMachineDetails(data.machine)
+        } else {
+          throw new Error("Invalid machine data")
+        }
 
         // Check Freighter availability
         const available = await isFreighterAvailable()

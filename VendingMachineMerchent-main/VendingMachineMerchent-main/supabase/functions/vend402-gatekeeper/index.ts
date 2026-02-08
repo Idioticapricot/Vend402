@@ -275,7 +275,7 @@ async function handleVerifyPayment(deviceId: string, txHash: string, challengeId
       id: crypto.randomUUID(),
       challenge_id: challengeId || txn.memo,
       device_id: deviceId,
-      amount: String(txn.operations[0]?.amount * 10_000_000 || 0),
+      amount: String(txn.operations[0]?.amount || 0),
       asset: "XLM",
       tx_hash: txHash,
       status: "verified",

@@ -212,8 +212,7 @@ export default function DashboardPage() {
               {machines.map((machine) => (
                 <Card
                   key={machine.id}
-                  className="glass-card border-gray-700 cursor-pointer hover:border-emerald-500/50 transition-colors"
-                  onClick={() => router.push(`/machine/${machine.id}`)}
+                  className="glass-card border-gray-700 hover:border-emerald-500/30 transition-colors"
                 >
                   <CardHeader>
                     <div className="flex items-start justify-between">
@@ -223,42 +222,61 @@ export default function DashboardPage() {
                           Created {new Date(machine.created_at).toLocaleDateString()} • {machine.price} XLM
                         </CardDescription>
                       </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10"
+                        onClick={() => router.push(`/machine/${machine.id}`)}
+                      >
+                        Details
+                      </Button>
                     </div>
                   </CardHeader>
-                  <CardContent className="space-y-4">
+                  <CardContent className="space-y-6">
                     <div>
-                      <label className="text-gray-400 text-sm">Payment Address (Merchant Wallet)</label>
-                      <p className="text-sm font-mono text-gray-300 bg-gray-900/50 px-3 py-2 rounded mt-1 truncate">
-                        {machine.machine_contract_address}
-                      </p>
+                      <label className="text-gray-400 text-sm font-medium">1) Receiving Wallet Address</label>
+                      <div className="flex items-center gap-2 mt-1">
+                        <code className="flex-1 bg-gray-900/50 px-3 py-2 rounded text-sm text-gray-300 font-mono truncate">
+                          {machine.machine_contract_address || "Not Set"}
+                        </code>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8 border-gray-700 hover:bg-gray-800 bg-transparent"
+                          onClick={() => {
+                            if (machine.machine_contract_address) {
+                              navigator.clipboard.writeText(machine.machine_contract_address)
+                              toast.success("Wallet address copied!")
+                            }
+                          }}
+                        >
+                          <Copy className="w-3.5 h-3.5" />
+                        </Button>
+                      </div>
                     </div>
 
                     <div>
-                      <label className="text-gray-400 text-sm font-bold text-yellow-500">REQUIRED MEMO</label>
+                      <label className="text-gray-400 text-sm font-medium">2) Machine ID (Memo)</label>
                       <div className="flex items-center gap-2 mt-1">
-                        <code className="flex-1 bg-gray-900/50 px-3 py-2 rounded text-sm text-yellow-400 font-mono font-bold tracking-wider">
+                        <code className="flex-1 bg-gray-900/50 px-3 py-2 rounded text-sm text-yellow-400 font-mono font-bold tracking-wider break-all">
                           {machine.id}
                         </code>
                         <Button
                           variant="outline"
                           size="icon"
-                          className="border-gray-700 hover:bg-gray-800 bg-transparent"
-                          onClick={(e) => {
-                            e.stopPropagation()
+                          className="h-8 w-8 border-gray-700 hover:bg-gray-800 bg-transparent"
+                          onClick={() => {
                             navigator.clipboard.writeText(machine.id)
-                            toast.success("Memo copied!")
+                            toast.success("Machine ID copied!")
                           }}
                         >
-                          <Copy className="w-4 h-4" />
+                          <Copy className="w-3.5 h-3.5" />
                         </Button>
                       </div>
-                      <p className="text-[10px] text-gray-500 mt-1">
-                        * Payments MUST include this Memo to credit this machine.
-                      </p>
                     </div>
 
                     <div>
-                      <label className="text-gray-400 text-sm">API Key</label>
+                      <label className="text-gray-400 text-sm font-medium">3) API Key</label>
                       <div className="flex items-center gap-2 mt-1">
                         <code className="flex-1 bg-gray-900/50 px-3 py-2 rounded text-sm text-gray-300 font-mono truncate">
                           {machine.api_key}
@@ -266,16 +284,13 @@ export default function DashboardPage() {
                         <Button
                           variant="outline"
                           size="icon"
-                          className="border-gray-700 hover:bg-gray-800 bg-transparent"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            handleCopyApiKey(machine.api_key, machine.id)
-                          }}
+                          className="h-8 w-8 border-gray-700 hover:bg-gray-800 bg-transparent"
+                          onClick={() => handleCopyApiKey(machine.api_key, machine.id)}
                         >
                           {copiedId === machine.id ? (
-                            <Check className="w-4 h-4 text-emerald-400" />
+                            <Check className="w-3.5 h-3.5 text-emerald-400" />
                           ) : (
-                            <Copy className="w-4 h-4" />
+                            <Copy className="w-3.5 h-3.5" />
                           )}
                         </Button>
                       </div>
