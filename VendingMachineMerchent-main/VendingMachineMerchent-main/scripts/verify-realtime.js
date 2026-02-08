@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 // You can also just hardcode them here if you want since this is a throwaway script
 const SUPABASE_URL = "https://mrsvbhcsbwxkrpzrrvun.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yc3ZiaGNzYnd4a3JwenJydnVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzODYyNzQsImV4cCI6MjA4NTk2MjI3NH0.7-12mrWqMr7vu_fj83lyRo3L-DCR62JpQuzLqzSp9GI";
-const DEVICE_ID = "machine-123";
+const DEVICE_ID = "cmlbtd1300003v96inpx5zm9n";
 
 console.log(`[Simulator] Connecting to Supabase Realtime for ${DEVICE_ID}...`);
 
